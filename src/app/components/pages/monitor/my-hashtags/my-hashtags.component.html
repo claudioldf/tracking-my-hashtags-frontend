@@ -1,0 +1,18 @@
+<h4>My hashtags</h4>
+
+<table class="table" *ngIf="myHashTags.length > 0; else emptyMyHashTags">
+  <tr *ngFor="let hashtag of myHashTags">
+    <td>{{ hashtag.word }}</td>
+    <td align="right">
+      <a (click)="remove($event, hashtag)" href="#" class="text-danger">remove</a>
+    </td>
+  </tr>
+</table>
+
+<ng-template #emptyMyHashTags>
+  <div class="alert alert-info pt-4 pb-4 text-center">
+    <strong>
+      You haven't added any hashtag yet!
+    </strong>
+  </div>
+</ng-template>

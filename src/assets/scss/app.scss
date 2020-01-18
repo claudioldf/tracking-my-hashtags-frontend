@@ -1,1 +1,27 @@
 @import "./_bootstrap";
+
+body {
+  font-size: 12px;
+}
+
+h1 {
+  &.title {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f6f6f6;
+  }
+}
+
+.card {
+  border: solid 1px #fafafa;
+
+  .card-header {
+    background: white;
+    border-bottom: solid 1px #eee;
+  }
+}
+
+hr {
+  background: #f0f0f0;
+  border: none;
+  height: 1px;
+}

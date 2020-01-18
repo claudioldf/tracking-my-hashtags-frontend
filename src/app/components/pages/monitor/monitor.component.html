@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12 mb-3">
+    <h1 class="title">Hashtag Monitor</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <h2>Twitter messages</h2>
+
+    <div *ngIf="updatingMessages" class="alert alert-warning">
+      Looking for new tweets...
+    </div>
+    <div *ngIf="!updatingMessages" class="alert alert-success">
+      Your monitor has been updated successfully!
+    </div>
+
+    <div class="row" *ngIf="tweets.length > 0; else emptyTweetMessages">
+      <div class="col-md-6" *ngFor="let tweet of tweets">
+        <app-card-tweet [tweet]="tweet"></app-card-tweet>
+      </div>
+    </div>
+
+    <ng-template #emptyTweetMessages>
+      <div class="card card-tweet shadow mb-4">
+        <div class="card-body pt-4 pb-4">
+          Sorry, there is no tweets messages.
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="col-md-4">
+
+    <div class="row">
+      <div class="col-md-12">
+        <app-hashtag-form (emitNewHashtagEvent)="listenNewHashtagEvent($event)"></app-hashtag-form>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <app-my-hashtags [myHashTags]="myHashTags"></app-my-hashtags>
+      </div>
+    </div>
+
+  </div>
+</div>

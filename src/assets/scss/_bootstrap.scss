@@ -1,5 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+$body-bg: #fafafa;
+$body-color: #666666;
+$font-family-sans-serif: 'Roboto', sans-serif;
+$font-size-base: 12;
+$h1-font-size:                $font-size-base * 2 !default;
+$h2-font-size:                $font-size-base * 1.5 !default;
+$h3-font-size:                $font-size-base * 1.50 !default;
+$h4-font-size:                $font-size-base * 1.25 !default;
+$h5-font-size:                $font-size-base * 1 !default;
+$h6-font-size:                $font-size-base !default;
+
+
 /* colors */
 $blue: #4483c7;
+$theme-colors: (
+  "primary": #3383c9,
+  "success": #0fb36c
+);
+
+/* buttons */
+$btn-border-width: 0;
+$btn-border-radius: 0;
+$btn-border-radius-sm: 0;
+$btn-border-radius-lg: 0;
 
 @import "node_modules/bootstrap/scss/functions";
 @import "node_modules/bootstrap/scss/variables";

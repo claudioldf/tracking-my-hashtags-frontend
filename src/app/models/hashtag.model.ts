@@ -1,10 +1,16 @@
 export class Hashtag {
 
   constructor(
-    private id: number,
-    private word: string
+    public name: string,
+    public id?: number
   ) {
-    this.word = `#${this.word.replace('#', '')}`;
+    this.name = `#${this.name.replace('#', '')}`;
+  }
+
+  public to_create_json() {
+    return {
+      name: this.name
+    }
   }
 
 }

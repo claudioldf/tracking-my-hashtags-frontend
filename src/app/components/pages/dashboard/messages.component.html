@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1 class="title mb-3">{{ pageTitle }}</h1>
+
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <h2>
+          Recents twitter's messages
+        </h2>
+      </div>
+
+      <div class="col-md-6">
+        <div class="float-right">
+          <button
+            class="btn btn-xs float-right"
+            [class.btn-primary]="autoSearchEnabled"
+            [class.btn-danger]="!autoSearchEnabled"
+            (click)="toggleAutoSearch($event)"
+          >
+            Auto searching: <strong>{{ autoSearchEnabled ? 'enabled (' + refreshWaitingSeconds + 's)' : 'disabled' }}</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!autoSearchEnabled" class="alert bg-light shadow-sm">
+      The "Auto searching" is disabled. You must to refresh messages manually.
+      <div class="w-100 text-center mt-4">
+        <button
+          class="btn btn-primary text-center"
+          (click)="refreshTweets()"
+          [disabled]="loadingMessages"
+        >{{ loadingMessages ? 'Searching...' : 'Searching now!' }}</button>
+      </div>
+    </div>
+
+    <div *ngIf="myHashTags?.length; else noHashtags">
+      <div class="row" *ngIf="(tweets$ | async) as tweets; else loading">
+        <div class="col-md-12 col-lg-6" *ngFor="let tweet of tweets">
+          <app-tweet-card [tweet]="tweet"></app-tweet-card>
+        </div>
+      </div>
+
+      <ng-template #loading>
+        <div *ngIf="loadingMessages" class="alert bg-light shadow-sm">
+          Please waiting a moment...We are requesting on Twitter's API for new messages.
+        </div>
+
+        <div *ngIf="!loadingMessages" class="alert bg-light shadow-sm">
+          We try to looking for messages by the hashtags, but we didn't found any message.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <ng-template #noHashtags>
+    <div class="alert alert-warning shadow-sm">
+      Please add at least one hashtag to search for Twitter messages.
+    </div>
+  </ng-template>
+
+  <div class="col-md-4">
+
+    <div class="row">
+      <div class="col-md-12">
+        <app-hashtag-form
+          (emitEvent)="listenEventEmitted($event)"
+        >
+        </app-hashtag-form>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <app-my-hashtags
+          (emitEvent)="listenEventEmitted($event)"
+          [myHashTags]="myHashTags"
+        >
+        </app-my-hashtags>
+      </div>
+    </div>
+
+  </div>
+</div>

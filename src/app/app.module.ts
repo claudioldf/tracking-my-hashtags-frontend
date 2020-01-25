@@ -1,21 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppHttpInterceptor } from './utils/http.interceptor';
 
+// third libs
+import { NotifierModule } from "angular-notifier";
+
+// pipes
 import {TimeAgoPipe} from 'time-ago-pipe';
 
 import { ROUTES } from './app.routes';
 
+// components
 import { AppComponent } from './app.component';
+
+// global components
 import { HeaderComponent } from './components/shared/header/header.component';
 import { ContentComponent } from './components/shared/content/content.component';
 import { MenuComponent } from './components/shared/menu/menu.component';
-import { MonitorComponent } from './components/pages/monitor/monitor.component';
-import { CardTweetComponent } from './components/pages/monitor/card-tweet/card-tweet.component';
-import { HashtagFormComponent } from './components/pages/monitor/hashtag-form/hashtag-form.component';
-import { MyHashtagsComponent } from './components/pages/monitor/my-hashtags/my-hashtags.component';
+
+// pages components
+import { MessagesComponent } from './components/pages/dashboard/messages.component';
+import { TweetCardComponent } from './components/pages/dashboard/tweet-card/tweet-card.component';
+import { HashtagFormComponent } from './components/pages/dashboard/hashtag-form/hashtag-form.component';
+import { MyHashtagsComponent } from './components/pages/dashboard/my-hashtags/my-hashtags.component';
+import { HashtagService } from './services/hashtag.service';
+import { TweetService } from './services/tweet.service';
 
 @NgModule({
   declarations: [
@@ -25,8 +37,8 @@ import { MyHashtagsComponent } from './components/pages/monitor/my-hashtags/my-h
     HeaderComponent,
     ContentComponent,
     MenuComponent,
-    MonitorComponent,
-    CardTweetComponent,
+    MessagesComponent,
+    TweetCardComponent,
     HashtagFormComponent,
     MyHashtagsComponent
   ],
@@ -34,9 +46,27 @@ import { MyHashtagsComponent } from './components/pages/monitor/my-hashtags/my-h
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    NotifierModule.withConfig({
+      position: {
+        horizontal: {
+          position: 'right',
+          distance: 12
+        },
+        vertical: {
+          position: 'top',
+          distance: 12,
+          gap: 10
+        }
+      },
+      theme: "material",
+    })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true },
+    HashtagService,
+    TweetService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

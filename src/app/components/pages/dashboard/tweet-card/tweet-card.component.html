@@ -1,0 +1,25 @@
+<div class="card shadow mb-4">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="float-left mr-2">
+          <img class="rounded-circle avatar" [src]="tweet.author.picture" alt="Card image cap"/>
+        </div>
+        <div class="float-left mr-2">
+          <strong>{{ tweet.author.name }}</strong>
+          <div class="mt-1"></div>
+          {{ tweet.author.followers }} followers
+        </div>
+        <div class="float-right text-right pt-3">
+          {{ tweet.published_at | timeAgo }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <p class="card-text">
+      {{ tweet.message }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<h2>My Hashtags List</h2>
+
+<p>Enter the hashtags that you wish to track on the field below:</p>
+
+<div class="form-inline">
+  <div class="input-group w-100">
+    <input type="text" class="w-75" placeholder="Hashtag here (eg. #php or php)..." [formControl]="hashtagName" (keyup.enter)="create()"/>
+    <button class="btn btn-success w-25" (click)="create()">Add</button>
+  </div>
+</div>

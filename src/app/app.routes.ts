@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router'
-import { MonitorComponent } from './components/pages/monitor/monitor.component';
+import { MessagesComponent } from './components/pages/dashboard/messages.component';
 
 export const ROUTES: Routes = [
-  { path: '', component: MonitorComponent },
+  { path: '', component: MessagesComponent },
 ]

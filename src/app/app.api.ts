@@ -1,1 +1,3 @@
-export const BASE_URL_API = 'http://localhost:3000';
+import { environment } from './../environments/environment';
+
+export const BASE_URL_API = environment.apiUrl;

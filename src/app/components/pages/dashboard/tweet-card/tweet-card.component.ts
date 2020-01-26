@@ -7,7 +7,7 @@ import { Tweet } from 'src/app/models/tweet.model';
   styleUrls: ['./tweet-card.component.scss']
 })
 export class TweetCardComponent implements OnInit {
-  @Input() private tweet: Tweet;
+  @Input() tweet: Tweet;
 
   constructor() { }
 

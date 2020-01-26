@@ -15,7 +15,7 @@
             class="btn btn-xs float-right"
             [class.btn-primary]="autoSearchEnabled"
             [class.btn-danger]="!autoSearchEnabled"
-            (click)="toggleAutoSearch($event)"
+            (click)="toggleAutoSearch()"
           >
             Auto searching: <strong>{{ autoSearchEnabled ? 'enabled (' + refreshWaitingSeconds + 's)' : 'disabled' }}</strong>
           </button>

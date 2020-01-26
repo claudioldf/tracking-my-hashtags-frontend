@@ -1,9 +1,9 @@
 export class Author {
 
   constructor(
-    private name: string,
-    private picture: string,
-    private followers: number
+    public name: string,
+    public picture: string,
+    public followers: number
   ) { }
 
 }

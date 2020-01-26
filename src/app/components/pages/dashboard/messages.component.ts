@@ -17,15 +17,15 @@ import { TweetService } from 'src/app/services/tweet.service';
   templateUrl: './messages.component.html',
 })
 export class MessagesComponent implements OnInit, OnDestroy {
-  private myHashTags: Hashtag[];
+  public myHashTags: Hashtag[];
 
-  private tweetsSubscription: Subscription;
-  private tweets$: Observable<Tweet[]>;
+  public tweetsSubscription: Subscription;
+  public tweets$: Observable<Tweet[]>;
 
-  private loadingMessages: boolean = false;
-  private refreshIntervalSeconds: number = 90;
-  private refreshWaitingSeconds: number = 0;
-  private autoSearchEnabled: boolean = true;
+  public loadingMessages: boolean = false;
+  public refreshIntervalSeconds: number = 90;
+  public refreshWaitingSeconds: number = 0;
+  public autoSearchEnabled: boolean = true;
 
   public pageTitle: string = "Messages";
 

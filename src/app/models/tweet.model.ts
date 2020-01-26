@@ -4,11 +4,11 @@ import { Author } from './author.model';
 export class Tweet {
 
   constructor(
-    private id: number,
-    private message: string,
-    private published_at: string,
-    private author: Author,
-    private hashtags?: Hashtag[]
+    public id: number,
+    public message: string,
+    public published_at: string,
+    public author: Author,
+    public hashtags?: Hashtag[]
   ) { }
 
 }

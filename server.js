@@ -17,7 +17,7 @@ const port = process.env.PORT || 8080;
 
 app.use(forceSSL());
 app.use(cors());
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/dist/frontend'));
 
 app.options('*', cors())
 app.listen(port);

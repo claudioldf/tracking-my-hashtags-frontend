@@ -48,8 +48,6 @@ export class MessagesComponent implements OnInit, OnDestroy {
       ).subscribe(() => {
         this.refreshWaitingSeconds--;
 
-        console.log('timing...' + this.refreshWaitingSeconds);
-
         if (this.refreshWaitingSeconds <= 0) {
           this.refreshWaitingSeconds = this.refreshIntervalSeconds;
         }

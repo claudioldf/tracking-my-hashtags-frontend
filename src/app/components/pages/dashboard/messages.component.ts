@@ -124,7 +124,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
           this.notifierService.notify("error", "Too many request in a short period of time. Please waiting some minutes and try again.");
           this.autoSearchEnabled = false;
         } else {
-          this.notifierService.notify("error", "Sorry, but we could not update your messages right now. Please waiting some time and try again");
+          this.notifierService.notify("error", "We are not able to refresh the content of this page at the moment.");
         }
       }
     );

@@ -15,7 +15,6 @@ export class HashtagService {
   }
 
   public create(hashtag: Hashtag): Observable<Hashtag> {
-
     return this.httpClient.post<Hashtag>(`${BASE_URL_API}/hashtags`, {
       hashtag: {
         name: hashtag.name.replace('#', '')
@@ -24,6 +23,6 @@ export class HashtagService {
   }
 
   public delete(hashtag: Hashtag): Observable<Hashtag> {
-    return this.httpClient.delete<Hashtag>(`${BASE_URL_API}/hashtags/${hashtag}`);
+    return this.httpClient.delete<Hashtag>(`${BASE_URL_API}/hashtags/${hashtag.id}`);
   }
 }

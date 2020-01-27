@@ -25,7 +25,8 @@ import { MenuComponent } from './components/shared/menu/menu.component';
 import { MessagesComponent } from './components/pages/dashboard/messages.component';
 import { TweetCardComponent } from './components/pages/dashboard/tweet-card/tweet-card.component';
 import { HashtagFormComponent } from './components/pages/dashboard/hashtag-form/hashtag-form.component';
-import { MyHashtagsComponent } from './components/pages/dashboard/my-hashtags/my-hashtags.component';
+import { HashtagFilterComponent } from './components/pages/dashboard/hashtag-filter/hashtag-filter.component';
+import { HashtagListComponent } from './components/pages/dashboard/hashtag-list/hashtag-list.component';
 import { HashtagService } from './services/hashtag.service';
 import { TweetService } from './services/tweet.service';
 
@@ -40,7 +41,8 @@ import { TweetService } from './services/tweet.service';
     MessagesComponent,
     TweetCardComponent,
     HashtagFormComponent,
-    MyHashtagsComponent
+    HashtagFilterComponent,
+    HashtagListComponent
   ],
   imports: [
     BrowserModule,

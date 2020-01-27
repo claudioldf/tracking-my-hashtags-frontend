@@ -1,24 +1,33 @@
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-7 col-lg-9">
     <h1 class="title mb-3">{{ pageTitle }}</h1>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <app-hashtag-filter
+          (emitEvent)="listenEventEmitted($event)"
+        ></app-hashtag-filter>
+      </div>
+    </div>
 
     <div class="row mb-2">
       <div class="col-md-6">
-        <h2>
+        <h4>
           Recents twitter's messages
-        </h2>
+        </h4>
       </div>
 
       <div class="col-md-6">
-        <div class="float-right">
-          <button
-            class="btn btn-xs float-right"
-            [class.btn-primary]="autoSearchEnabled"
-            [class.btn-danger]="!autoSearchEnabled"
+        <div class="float-right text-right">
+          Auto searching: <a
+            href="#"
+            class="link link-xs"
+            [class.link-primary]="autoSearchEnabled"
+            [class.link-danger]="!autoSearchEnabled"
             (click)="toggleAutoSearch()"
           >
-            Auto searching: <strong>{{ autoSearchEnabled ? 'enabled (' + refreshWaitingSeconds + 's)' : 'disabled' }}</strong>
-          </button>
+            <u>{{ autoSearchEnabled ? 'enabled (' + refreshWaitingSeconds + 's)' : 'disabled' }}</u>
+          </a>
         </div>
       </div>
     </div>
@@ -34,7 +43,7 @@
       </div>
     </div>
 
-    <div *ngIf="myHashTags?.length; else noHashtags">
+    <div *ngIf="hashtagList?.length; else noHashtags">
       <div class="row" *ngIf="(tweets$ | async) as tweets; else loading">
         <div class="col-md-12 col-lg-6" *ngFor="let tweet of tweets">
           <app-tweet-card [tweet]="tweet"></app-tweet-card>
@@ -59,8 +68,7 @@
     </div>
   </ng-template>
 
-  <div class="col-md-4">
-
+  <div class="col-md-5 col-lg-3">
     <div class="row">
       <div class="col-md-12">
         <app-hashtag-form
@@ -72,11 +80,11 @@
 
     <div class="row mt-4">
       <div class="col-md-12">
-        <app-my-hashtags
+        <app-hashtag-list
           (emitEvent)="listenEventEmitted($event)"
-          [myHashTags]="myHashTags"
+          [hashtagList]="hashtagList"
         >
-        </app-my-hashtags>
+        </app-hashtag-list>
       </div>
     </div>
 

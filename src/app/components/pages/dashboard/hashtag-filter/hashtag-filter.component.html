@@ -1,0 +1,15 @@
+<h4>Filter Hashtag</h4>
+
+<p class="mb-0">Enter the hashtags that you wish to filter:</p>
+
+<div class="form-inline mb-2">
+  <div class="input-group w-100">
+    <input type="text" class="w-75" placeholder="Hashtag here (eg. #ruby)..." [formControl]="hashtagInputFilter" (keyup.enter)="filter()"/>
+    <button class="btn btn-success w-25" (click)="filter()">Filter</button>
+
+    <div *ngIf="showWouldLikeToAdd" class="w-100">
+      Would you like to add to your list?
+      <a href="#" class="link link-primary" (click)="add()"><u>Yes, please!</u></a>
+    </div>
+  </div>
+</div>

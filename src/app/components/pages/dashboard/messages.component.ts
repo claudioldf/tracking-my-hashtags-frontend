@@ -17,16 +17,16 @@ import { TweetService } from 'src/app/services/tweet.service';
   templateUrl: './messages.component.html',
 })
 export class MessagesComponent implements OnInit, OnDestroy {
-  public myHashTags: Hashtag[];
+  private hashtagList: Hashtag[];
 
-  public tweetsSubscription: Subscription;
-  public tweets$: Observable<Tweet[]>;
+  private tweetsSubscription: Subscription;
+  private tweets$: Observable<Tweet[]>;
 
-  public loadingMessages: boolean = false;
-  public refreshIntervalSeconds: number = 90;
+  private refreshIntervalSeconds: number = 90;
   public refreshWaitingSeconds: number = 0;
   public autoSearchEnabled: boolean = true;
 
+  public loadingMessages: boolean = false;
   public pageTitle: string = "Messages";
 
   constructor(
@@ -39,17 +39,18 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.hashtagService.getAllHashtags()
       .toPromise()
       .then((hashtags: Hashtag[]) => {
-        this.myHashTags = hashtags
+        this.hashtagList = hashtags
       })
 
+    this.refreshWaitingSeconds = this.refreshIntervalSeconds;
     interval(1000)
       .pipe(
         startWith(this.refreshIntervalSeconds),
       ).subscribe(() => {
-        this.refreshWaitingSeconds--;
-
         if (this.refreshWaitingSeconds <= 0) {
           this.refreshWaitingSeconds = this.refreshIntervalSeconds;
+        } else {
+          this.refreshWaitingSeconds--;
         }
       })
 
@@ -68,29 +69,30 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.tweetsSubscription.unsubscribe();
   }
 
-  listenEventEmitted(event) {
+  listenEventEmitted(event): void {
     let methods = {
-      hashtagCreated: (self, payload: Hashtag) => {
-        self.hashtagService.create(payload);
+      hashtagCreated: (hashtag: Hashtag) => {
+        this.hashtagService.create(hashtag);
 
-        self.myHashTags.push(payload as Hashtag);
+        this.hashtagList.push(hashtag as Hashtag);
       },
-      hashtagDeleted: (self, payload: Hashtag) => {
-        self.hashtagService.delete(payload.id);
+      hashtagDeleted: (hashtag: Hashtag) => {
+        this.hashtagService.delete(hashtag);
 
-        self.myHashTags.filter((hashtag: Hashtag) => {
-          return hashtag.id == payload.id;
+        this.hashtagList = this.hashtagList.filter((h: Hashtag) => {
+          return h.id != hashtag.id;
         });
+      },
+      filterTweets: (filterHashtags:[]) => {
+        this.refreshTweets(filterHashtags);
       }
     };
 
-    methods[event.type](this, event.payload);
+    if (!methods[event.type]) {
+      return;
+    }
 
-    this.hashtagService.getAllHashtags()
-      .toPromise()
-      .then((hashtags: Hashtag[]) => {
-        this.myHashTags = hashtags
-      })
+    methods[event.type](event.payload);
   }
 
   toggleAutoSearch(): void {
@@ -101,16 +103,14 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
   }
 
-  refreshTweets(): void {
+  refreshTweets(filterHashtags:[] = []): void {
     this.loadingMessages = true;
 
-    if (this.myHashTags && this.myHashTags.length == 0) {
+    if (this.hashtagList && this.hashtagList.length == 0) {
       return;
     }
 
-    if (this.tweets$ === undefined) {
-      this.tweets$ = this.tweetService.getAllTweets();
-    }
+    this.tweets$ = this.tweetService.getAllTweets(filterHashtags);
 
     this.tweetsSubscription = this.tweets$.subscribe(
       (tweets) => {
@@ -121,7 +121,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
         this.loadingMessages = false;
 
         if (error.status == 429) {
-          this.notifierService.notify("error", "Too many request in a short period of time. Please waiting some minutes and try again.");
+          this.notifierService.notify("error", "Too many request in a short period of time.");
           this.autoSearchEnabled = false;
         } else {
           this.notifierService.notify("error", "We are not able to refresh the content of this page at the moment.");

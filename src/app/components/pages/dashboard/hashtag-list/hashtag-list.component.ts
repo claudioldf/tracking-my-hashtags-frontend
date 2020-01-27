@@ -4,12 +4,11 @@ import { HashtagService } from 'src/app/services/hashtag.service';
 import { NotifierService } from 'angular-notifier';
 
 @Component({
-  selector: 'app-my-hashtags',
-  templateUrl: './my-hashtags.component.html',
-  styleUrls: ['./my-hashtags.component.scss']
+  selector: 'app-hashtag-list',
+  templateUrl: './hashtag-list.component.html'
 })
-export class MyHashtagsComponent implements OnInit {
-  @Input() myHashTags: Hashtag[];
+export class HashtagListComponent implements OnInit {
+  @Input() hashtagList: Hashtag[];
 
   @Output() emitEvent = new EventEmitter();
 
@@ -20,7 +19,7 @@ export class MyHashtagsComponent implements OnInit {
 
   ngOnInit() { }
 
-  delete(event, hashtag: Hashtag): void {
+  delete(hashtag: Hashtag): void {
     this.hashtagService.delete(hashtag)
       .subscribe(
         () => {

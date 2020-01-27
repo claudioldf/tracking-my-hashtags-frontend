@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyHashtagsComponent } from './my-hashtags.component';
+import { HashtagFilterComponent } from './hashtag-filter.component';
 
-describe('MyHashtagsComponent', () => {
-  let component: MyHashtagsComponent;
-  let fixture: ComponentFixture<MyHashtagsComponent>;
+describe('HashtagFilterComponent', () => {
+  let component: HashtagFilterComponent;
+  let fixture: ComponentFixture<HashtagFilterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MyHashtagsComponent ]
+      declarations: [ HashtagFilterComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyHashtagsComponent);
+    fixture = TestBed.createComponent(HashtagFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

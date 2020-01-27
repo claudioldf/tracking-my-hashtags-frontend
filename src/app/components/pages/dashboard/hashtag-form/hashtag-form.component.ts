@@ -6,8 +6,7 @@ import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-hashtag-form',
-  templateUrl: './hashtag-form.component.html',
-  styleUrls: ['./hashtag-form.component.scss']
+  templateUrl: './hashtag-form.component.html'
 })
 export class HashtagFormComponent implements OnInit {
   hashtagName = new FormControl('', Validators.required);
@@ -23,6 +22,11 @@ export class HashtagFormComponent implements OnInit {
   }
 
   create(): void {
+    if (!this.hashtagName.value) {
+      this.notifierService.notify("error", 'Please, enter the hashtag');
+      return;
+    }
+
     let hashtag = new Hashtag(this.hashtagName.value);
 
     this.hashtagService.create(hashtag)

@@ -17,7 +17,7 @@ import { TweetService } from 'src/app/services/tweet.service';
   templateUrl: './messages.component.html',
 })
 export class MessagesComponent implements OnInit, OnDestroy {
-  private hashtagList: Hashtag[];
+  public hashtagList: Hashtag[];
 
   private tweetsSubscription: Subscription;
   private tweets$: Observable<Tweet[]>;
